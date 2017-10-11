@@ -83,7 +83,7 @@ for genre in favoriteGenres.sorted() {
 
 #### Performing Set Operations
 * Fundamental Set Operations
-<img src="./pic_2.png" />  
+<img src="pics/pic_2.png" />  
 
 ```swift
 let oddDigits: Set = [1, 3, 5, 7, 9]
@@ -101,7 +101,7 @@ oddDigits.symmetricDifference(singleDigitPrimeNumbers).sorted()
 
 ```
 * Set Membership and Equality
-<img src="./pic_3.png />  
+<img src="pics/pic_3.png />  
 
 
 #### Dictionaries

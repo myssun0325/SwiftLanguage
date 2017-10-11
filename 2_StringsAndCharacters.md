@@ -130,7 +130,7 @@ greeting[index]
     ```
     - 문자열에 대한 작업 중 잠깐동안만 substring을 사용
     - 오랫동안 저장할 준비가 될때 위 코드처럼 substring을 String의 인스턴스로 변환해서 사용
-    <img src="pic_1.png" />
+    <img src="pics/pic_1.png" />
     - substring은 원래 문자열을 저장하는데 사용되는 메모리의 일부를 다시 사용할 수 있다.(for 성능최적화 -> 문자열이나 substring을 수정할 때까지 추가적으로 메모리를 복사해야되는 cost를 줄일 수 있다.) 이와 같은 이유 때문에 오래 저장하는것에 대해서 오래 유지되어야한다면 String인스턴스로 다시 저장해서 사용
 * String, Substring은 모두 `StringProtocol`을 준수. 문자열을 조작하는 함수가 StringProtocol value를 받아들일 때 편리하다. 이런 함수는 String 또는 SubString value로 호출할 수 있다.
 
