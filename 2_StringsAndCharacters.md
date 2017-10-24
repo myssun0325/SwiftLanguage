@@ -52,11 +52,21 @@ let multiplier = 3
 let message = "\(multiplier) times 2.5 is \(Double(multiplier) * 2.5)"
 ```
 
-#### Unicode (내용이 조금 이해안감 다시 계속 볼 것)
+#### Unicode
 * Unicode is an international standard for encoding, representing, and processing text in different writing systems.
-* 스위프트의 네이티브 문자열 타입은 Unicode Scalars(21-bit)에서 만들어졌다.
+* 스위프트의 String과 Character 타입은 완전히 유니코드와 호환된다.
+* Unicode Scalars
+    - 스위프트의 native String 타입은 Unicode Scalar값으로 만들어졌다.
+    - Unicode Scalar는 21-bit숫자다.
+    - Unicode Scalar는 U+0000 ~ U+D7FF 또는 U+E000 ~ U+10FFFF 범위를 모두 포함하는 Unicode code point다.
+    - Unicode Scalar는 Unicode surrogate pair code points(U+D800 ~ U+DFFF)를 포함하지 않는다.
+    - 21-bit 유니코드 스칼라에 문자만 할당되어 있는것이 아니라 나중에 할당을 위해 예약되어있는 스칼라도 있다.
+    - 문자에 할당된 스칼라는 일반적으로 이름을 갖고있다.(예: LATIN SMALL LETTER A("a"))
+
 * Extended Grapheme Clusters
-    - 스위프트의 Character 타입의 모든 인스턴스는 single extended grapheme clutser를 나타낸다.
+    - grapheme : 언어의 최소 단위 (a, b, c, …), cluster : 집단, 무리, 접속된 여러개의 단말들
+    - 스위프트의 Character 타입의 모든 인스턴스는 하나의 extended grapheme clutser를 나타낸다.
+    - Extended grapheme cluster는 하나이상의 유니코드 스칼라(사람이 읽을 수 있는 하나의 문자를 생성하는)의 sequence이다.
     - extended grapheme clutser는 유니코드 스칼라의 순서로 사람이 읽을 수 있는 문자를 만든다.
     ```swift
     let precomposed: Character = "\u{D55C}"                  // 한
@@ -78,36 +88,40 @@ print("the number of characters in \(word) is \(word.count)")
 ```
 
 #### Accessing and Modifying a String
-* 스위프트 String은 Int값으로 인덱싱할 수 없다. (문자마다 다른 양의 메모리가 필요하고 어떤 문자가 특정 위치에 있는지 판별하려면 해당 문자열의 시작 또는 끝에서 각 유니코드 스칼라를 반복해야 한다.)
-* property: `startIndex`, `endIndex` (비어있는 String -> startIndex와 endIndex가 같다. endIndex는 마지막 문자 다음 position)
-* method: `index(before:)`, `index(after:)`, `index(_:offsetBy:)`
-```swift
-let greeting = "Guten Tag!"
-greeting[greeting.startIndex]
-// G
-greeting[greeting.index(before: greeting.endIndex)]
-// !
-greeting[greeting.index(after: greeting.startIndex)]
-// u
-let index = greeting.index(greeting.startIndex, offsetBy: 7)
-greeting[index]
-// a
-```
-* String의 모든 문자열의 인덱스에 접근하기 : `indices`
-    ```swift
-    for index in greeting.indices {
-        print("\(greeting[index]) ", terminator: "")
-    }
-    // Prints "G u t e n   T a g ! "
-    ```
-* Collection 프로토콜을 준수하는 모든 타입에 대해서 startIndex, endIndex 프로퍼티와 index(before:), index(after:), `index(_:offsetBy:)`메소들을 사용할 수 있다.
+* 문자열의 프로퍼티와 메서드를 통해서 문자열에 접근하고 수정할 수 있고 또한 서브스크립트 문법을 통해서도 가능하다.
+* String Indices
+    - String 값에는 index type과 연관된 String.Index를 갖고 있다. String.Index는 문자열에서 각 문자의 위치에 해당한다.
+    - 서로 다른 문자는 저장되기 위해서 서로 다른 양의 메모리를 요구한다. 그래서 문자열에서 어떤 문자가 어느 위치에 있는지 결정하려면 문자열의 시작이나 끝에서부터 각각 유니코드스칼라를 iterate over 해야한다. 이런 이유로 스위프트의 문자열은 integer 값으로 인덱싱을 할 수 없다.
+    - `startIndex` 프로퍼티는 문자열의 첫번째 문자의 위치에 접근하기위해 사용한다.
+    - `endIndex` 프로퍼티는 문자열의 *마지막 문자 다음 위치* 에 접근할 때 사용한다. 그래서 문자열의 서브스크립트의 valid argument로 사용할 수 없다. 만약에 문자열이 비어있다면 startIndex와 endIndex는 같다.
+    - 주어진 인덱스의 전이나 후의 인덱스에 접근하려면 문자열의 `index(before:)`, `index(after:)`메서드를 사용하면 된다.
+    - 주어진 인덱스로부터 멀리 떨어져있는 인덱스에 접근하려면 `index(_:offsetBy:)`메서드를 사용하면 된다.
+    - 서브스크립트 문법을 통해 특정 문자열 인덱스에 있는 문자에 접근할 수 있다.
+        ```swift
+        let greeting = "Guten Tag!"
+        greeting[greeting.startIndex] //  G
+        greeting[greeting.index(before: greeting.endIndex)] // !
+        greeting[greeting.index(after: greeting.startIndex)] // u
+        let index = greeting.index(greeting.startIndex, offsetBy: 7)
+        greeting[index] // a
+        ```
+    - 문자열의 범위 밖에 있는 인덱스에 접근하려고하면 runtime error 발생
+    - `indices`프로퍼티를 통해 string의 모든 문자에 접근할 수 있다.
+        ```swift
+        for index in greeting.indices {
+          print("\(greeting[index]) " , terminator: "")
+        }
+        print
+        ```
+    - NOTE: Collection 프로토콜을 준수하는 모든 타입에 대해서 startIndex, endIndex 프로퍼티와 index(before:), index(after:), `index(_:offsetBy:)`메소들을 사용할 수 있다.
+
 * Inserting and Removing
     ```swift
     var welcome = "hello"
     welcome.insert("!", at: welcome.endIndex)
     // welcome now equals "hello!"
 
-    welcome.insert(contentsOf: " There", at: welcome.index(before: welcome.endIndex))
+    welcome.insert(contentsOf: " there", at: welcome.index(before: welcome.endIndex))
     // welcome now equals "hello there!"
 
     welcome.remove(at: welcome.index(before: welcome.endIndex))
@@ -118,6 +132,7 @@ greeting[index]
     // welcome now equals "hello"
     ```
     - `insert(_:at:), insert(contentsOf:at:), remove(at:),removeSubrange(_:)`메서드는 RangeReplaceableCollection 프로토콜을 준수하는 타입에서 사용가능
+
 * Substrings
     ```swift
     let greeting = "Hello world!"
@@ -151,6 +166,43 @@ greeting[index]
 
 
 #### Unicode Representations of Strings(문자열의 유니코드 표현)
+유니코드 문자열이 텍스트파일이나 다른 저장소에 기록될 때, 문자열에 있는 유니코드 스칼라가 몇가지 인코딩 형식(encoding forms)중 하나로 인코딩 된다.
+각 인코딩 형식은 코드 단위(code unit)으로 알려진 small chunk로 문자열을 인코딩한다. 여기엔 `UTF-8`, `UTF-16`, `UTF-32`인코딩 형식이 있다.
+스위프트는 문자열의 유니코드 표현에 접근하기 위한 몇가지 방법을 제공한다. 가장 기본적인 방법은 for in 문으로 Character값에 접근하기.
+* 3가지 유니코드호환표현으로 문자열 값에 접근하는 방법
+    1. A collection of UTF-8 code units(문자열의 `utf8`프로퍼티로 접근)
+    2. A collection of UTF-16 code units(문자열의 `utf16`프로퍼티로 접근)
+    3. A collection of 21-bit Unicode scalar values, 문자열의 UTF-32 인코딩형식과 같음(`unicodeScalars` 프로퍼티로 접근)
+
+```swift
+let dogString = "Dog‼🐶"
+
+for codeUnit in dogString.utf8 {
+    print("\(codeUnit) ", terminator: "")
+}
+
+print()
+
+for codeUnit in dogString.utf16 {
+    print("\(codeUnit) ", terminator: "")
+}
+
+print()
+
+// Unicode Scalar Representation
+for scalar in dogString.unicodeScalars {
+    print("\(scalar.value) ", terminator: "")
+}
+print()
+
+for scalar in dogString.unicodeScalars {
+    print("\(scalar) ")
+}
+
+print("")
+```
+
+
 * playground 출력관련 issue
 ```swift
 let dogString = "Dog‼🐶"

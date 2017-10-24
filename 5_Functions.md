@@ -52,11 +52,12 @@
 
     let bounds = minMax(array: [8, -6, 2, 109, 3, 71])
     print("min is \(bounds.min) and max is \(bounds.max)")
+    // bounds.min, bounds.max에서 튜플의 멤버 값은 함수의 반한 타입의 부분으로 이름이 붙여진다.
+    // 튜플의 멤버는 이름을 따로 지정해주지 않아도 된다.
     ```
-
 * Optional Tuple Return Types
     - __주의 : (Int, Int)? 은 튜플 전체(자체)가 옵셔널인 거고, (Int?, Int?)는 각각 튜플의 요소(값이)가 옵셔널이다__
-    - 바로 위의 예제에서 array가 비어있는 array일 경우를 처리하기 위해 Optional Tuple return type활용
+    - 위 예제에서 함수는 넘겨진 array에 대해서 어떠한 safety check도 하지 않는다. 만약에 넘겨받은 array가 비어있다면 runtime에러가 발생한다. 이를 다루기 위해서 *optional tuple return type* 을 활용
     ```swift
     func minMax(array: [Int]) -> (min: Int, max: Int)? {
     if array.isEmpty { return nil }
@@ -116,17 +117,26 @@
 
         return total / Double(numbers.count)
     }
+
+    arithmeticMean(1, 2, 3, 4, 5)
+    // returns 3.0, which is the arithmetic mean of these five numbers
+    arithmeticMean(3, 8.25, 18.75)
+    // returns 10.0, which is the arithmetic mean of these three numbers
     ```
+    - 가변매개변수는 0개 이상의 값을 받아올 수 있고, 함수는 최대 하나의 가변매개변수만 가질 수 있다.
 * In-Out Parameters
-    - C언어 포인터 비슷한개념
-    - 함수의 parameter는 기본적으로 상수.
-    - 수정될 수 있다 : `&`
-    - in-out parameter는 기본 값을 가질 수 없고, 가변 매개변수는 inout으로 표시할 수 없다.
-    - 내부적으로 In-Out paramter의 전달순서
+함수의 매개변수는 기본적으로 상수다. 그래서 함수의 매개변수의 값을 함수안에서 변경하려고하면 compile-time error가 발생한다.
+    - 함수가 매개변수의 값을 변경하고, 함수 호출이 끝난 후에도 그 변화를 유지하려면 매개변수를 `in-out parameter`로 정의하면 된다.
+    - 매개변수 타입 앞에 `inout`키워드 사용
+    - 내부적으로 In-Out paramter의 전달순서 (*copy-in copy-out*)
         1. When the function is called, the value of the argument is copied.
         2. In the body of the function, the copy is modified.
         3. When the function returns, the copy’s value is assigned to the original argument.
-    - in-out parameter로 variable로만 가능!(상수나 literal은 수정될 수 없기 때문에)
+        - 만약에 연산프로퍼티나 프로퍼티 감시자를 가지는 프로퍼티가 입출력 매개변수로 전달될 때, 함수가 호출될 때 getter가호출되고, 함수가 종료되고 반환될 때 setter가 호출된다.
+    - in-out 매개변수로는 변수만 넘길 수 있다.(상수나 literal value는 불가능)
+    - in-out 매겨변수로 넘겨주는 인자는 ampersand를 붙인다. `&`
+    - in-out parameter는 기본 값을 가질 수 없고, 가변 매개변수는 inout으로 표시할 수 없다.
+
     ```swift
     func swapTwoInts(_ a: inout Int, _ b: inout Int) {
         let temporaryA = a

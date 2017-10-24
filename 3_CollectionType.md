@@ -1,11 +1,6 @@
-Sets(노트 박스는 무시 가능)
-Performing Set Operations
-
-• 배열(Array)의 초기화(initializers)에 대해서도 읽어두시기 바랍니다.
-
----
-
 #### Mutability of Collections
+array, set, dictionar소개
+상수사용을 통해 추론이 쉬워지고 컴파일러가 성능을 올릴 수 있다.
 
 #### Array
 * 스위프트의 Array 타입은 Foundation의 NSArray class와 연결되어 있다.
@@ -41,45 +36,69 @@ var shoppingList: [String] = ["Eggs", "Milk"] // literal
     ```
 
 #### Sets
-* `Set<Element>`
-* hashable type만 가능 : 스위프트의 basic type은 모두 hashable (String, Int, Double, Bool)
-    - 추가적으로 set value type이나 dictionary key type으로 사용가능하고, Enumeration case value 또한 hashable이다.(연관값을 가지고 있지 않을 경우만)
-* 타입은 스스로 해시값을 계산하는 방법을 제공해야한다. 해시 값은 모든 객체에 대해 같은지를 비교하는데 사용하는 Int값, a == b이면 a.hashValue == b.hashValue와 같다.
-* Creating a Set
-```swift
-var letters = Set<Character>()
-letters = [] // empty
-
-var favoriteGenres: Set<String> = ["Rock", "Classical", "Hip Hop"]
-// var favoriteGenres: Set = ["Rock", "Classical", "Hip Hop"] 와 같다. 모두 같은 타입이므로 Set만 명시해주면 나머진 추론
-
-```
-* remove 사용시 주의(옵셔널 바인딩)
-    - remove메서드는 해당 값이 포함되어 있지 않으면 nil을 돌려줌
+Set는 정해진 순서가 없는 컬렉션에 같은 타입의 고유한 값을 저장한다.(중복되지 않는 value)
+Note: 스위프트의 Set 타입은 Foundation의 NSSet 클래스와 연결되어있다(bridged).
+* Hash Values for Set Types
+    - Set에 저장하는 값들은 반드시 *hashable* 타입이어야 한다. 즉, 타입은 반드시 스스로 hash value를 계산하는 방법을 제공해야 한다. Hash value는 모든 객체에 대해서 같은 값인지 비교하는데 사용되는 Int값이다. 예를 들어 `a == b`라면 `a.hashValue == b.hashValue`를 따른다.
+    - 스위프트의 기본타입(`String, Int, Double, Bool`)은 모두 hashable 타입이며 Set value type과 dictionary key type으로 사용가능하다. 열거형 케이스 값도 *연관값* 이 없다면 기본적으로 hashable.
+    - 해시 가능한 값 = 스위프트 표준라이브러리에 Hashable 프로토콜을 따른다는 것을 의미 (스위프트 프로그래밍[야곰 저] 92 page)
+* Set Type Syntax
+    - `Set<Element>`, Set은 배열과 달리 축약형을 갖고 있지 않다.
+* Creating and Initializing an Empty Set
+    - 이니셜라이저 문법을 사용한 생성
+        ```swift
+        var letters = Set<Character>()
+        print("letters is of type Set<Character> with \(letters.count) items.")
+        // 0 items, letters is inferred to be Set<Character> from the type of the initilizer
+        ```
+    - 만약에 이미 문맥에서 타입에 대한 정보를 제공하고 있다면(function argument라든지 변수나 상수의 타입을 이미 정했다면), empty array literal을 사용할 수 있다.
+        ```swift
+        letters.insert("a")
+        // letters - ["a"], 타입은 character
+        letters = []
+        // letters은 Set []
+        ```
+* Creating a Set with an Array Literal
     ```swift
-    var favoriteGenres: Set = ["Rock", "Classical", "Hip Hop"]
-
-    if let removedGenre = favoriteGenres.remove("Rock") {
-      print("\(removedGenre)? I'm over it.")
-    } else {
-      print("I never much cared for that.")
-    }
-    // "Rock? I'm over it."
-
-    // 포함여부 확인
-    if favoriteGenres.contains("Funk") {
-      print("I get up on the good foot.")
-    } else {
-      print("It"s too funky in here.")
-    }
-    // "It"s too funky in here."
+    var favoriteGenres: Set<String> = ["Rock", "Classical", "Hip hop"]
     ```
-* Iterating Over a Set( + sorting)
-```swift
-for genre in favoriteGenres.sorted() {
+
+    - Set타입은 array literal만으로 타입추론을 할 수 없다. 반드시 Set의 명시적인 선언이 필요하다. 하지만 스위프트의 타입 추론 때문에 Set의 타입은 생략할 수 있다.
+
+    > var favoriteGenres: Set = ["Rock", "Classical", "Hip hop"]
+
+* Accessing and Modifying a Set
+    - `count`, `isEmpty` 프로퍼티 설명(isEmpty는 count 프로퍼티가 0 인지 아닌지 확인하는 Boolean 타입이다.)
+    - 아이템추가 : `insert(_:)`메서드
+    - 아이템제거 : `remove(_:)`메서드 (반환값: 제거된 value, 만약에 포함하고 있지 않다면 nil 반환), 전부 삭제할 때 : `removeAll()`
+        ```swift
+        if let removedGenre = favoriteGenres.remove("Rock") {
+          print("\(removedGenre)? I'm over it.")
+        } else {
+          print("I never much cared for that")
+        }
+        ```
+    - 포함여부 확인 : `contains(_:)` 메서드
+        ```swift
+        if favoriteGenres.contains("Funk") {
+          print("I get up on the good foot.")
+        } else {
+          print("It's too funky in here.")
+        }
+        ```
+
+* Iterating Over a Set
+    ```swift
+    for genre in favoriteGenres {
     print("\(genre)")
-}
-```
+    }
+    ```
+    - 정렬을 사용하고 싶을 때 : `sorted()`메서드
+    ```swift
+    for genre in favoriteGenres.sorted() {
+      print("\(genre")
+    }
+    ```
 
 #### Performing Set Operations
 * Fundamental Set Operations
@@ -101,8 +120,12 @@ oddDigits.symmetricDifference(singleDigitPrimeNumbers).sorted()
 
 ```
 * Set Membership and Equality
-<img src="pics/pic_3.png />  
-
+<img src="pics/pic_3.png" />  
+    * `==` : 포함하고 있는 value들이 전부 같은지
+    * `isSubset(of:)` : 세트가 주어진 세트의 subset인지
+    * `isSuperset(of:)` : 세트가 주어진 세트의 superset인지
+    * `isStrictSubset(of:)` or `isStrictSuperset(of:)` : superset이나 subset이지만 서로 같으면 안된다
+    * `isDisjoint(with:)` : 공유하는 value가 없음
 
 #### Dictionaries
 * `Dictionary<Key, Value>` 또는 `[Key: Value]`
