@@ -120,6 +120,7 @@ func canThrowAnError() throws {
 * 오류가 발생한 여지가 있는 함수에 : `throws`
 * 오류발생의 여지가 있는 함수를 호출할 때는 `try`를 사용하여 호출해야 한다.(try, try?, try!)
 * throw는 `do-catch`문을 활용하여 오류처리
+    * `do`는 새로운 스코프영역을 만든다. 이 영역에는 한 개 이상의 `catch`문으로 오류를 전달할 수 있다.
 * 정리 코드
 ```swift
 func makeASandwich() throws {
