@@ -2,7 +2,7 @@
 * Stored Properties of Constant Structure Instances
     - 값 타입이 아닌 참조타입인 클래스에서는 상수로 선언된 프로퍼티도 변경가능
 * Lazy Stored Properties
-    - 처음 사용되지 전까지 initial value(초기값)가 계산되지 않는 프로퍼티, 변수 앞에 `lazy`를 사용
+    - 처음 사용되기 전까지 initial value(초기값)가 계산되지 않는 프로퍼티, 변수 앞에 `lazy`를 사용
     - Note: lazy property는 인스턴스 초기화가 지나서도 초기값을 가져올 수 없기 때문에 항상 *변수* 에만 사용해야 한다. 상수 프로퍼티는 초기화가 완료되기전에 항상 값을 가지고 있어야 하기 때문에 lazy를 사용할 수 없다.
     - Lazy property는 프로퍼티의 초기값이 인스턴스의 초기화가 끝날 때까지 값을 알 수 없는 외부요소에 의존할 때 유용하다.
     - Lazy property는 프로퍼티의 초기값이 복잡하거나 computationally expensive setup을 요구할 때 유용하다.
@@ -32,7 +32,7 @@
     // Prints "data.txt"
     ```
 * Stored Properties and Instance Variables
-  - 공식문서 이해안감
+  - 공식문서 이해안감 -> 책 활용
 #### Computed Properties
 * getter와 옵셔널setter
 

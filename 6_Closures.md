@@ -50,7 +50,7 @@
 > reversedNames = names.sorted(by: { s1, s2 in s1 >  s2 } )
 
 * Shorthand Argument Names
-> reversedNames = names.sorted(by: { $0 > $1 } )
+> reversedNames = names.sorted(by: { \$0 > \$1 } )
 
 * Operator Methods
 > reversedNames = names.sorted(by: >)

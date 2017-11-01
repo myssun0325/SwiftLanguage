@@ -1,5 +1,4 @@
-스위프트 공식문서 읽기
-(개인적으로 필요하거나 자주 잊거나 하는 부분에 대해서만 정리 되어있음, 나머진 공식문서 다시 읽기)
+이 문서는 개인의 공부목적으로만 작성되었습니다.
 
 [스위프트 프로그래밍언어 공식문서](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/)
 
@@ -15,12 +14,23 @@
 ### [5. Functions](5_Functions.md)
 ### [6. Closures](6_Closures.md)
 ### [7. Enumerations](7_Enumerations.md)
-### [8. Class and Structure](8_ClassAndStructure.md)
+### [8. Class and Structure](8_ClassAndStructure.md) + 스위프트 프로그래밍 [야곰 저]
 ### [9. Properties](9_Properties.md)
 ### [10. Methods](10_Methods.md)
 ### [11. Subscripts](11_Subscripts.md)
-### [12. Inheritance](12_Inheritance.md)
-### [13. Initialization](13_Initialization.md)
-### [14. ]
-### [15. Optional Chaining](15_OptionalChaining.md)
-### [16. Type Casting](16_TypeCasting.md)
+### [12. Inheritance](12_Inheritance.md) + 스위프트 프로그래밍 [야곰 저]
+### [13. Initialization](13_Initialization.md) + 스위프트 프로그래밍 [야곰 저]
+### [14. Deinitialization](14_Deinitialization.md)
+### 15. Optional Chaining - 스위프트 프로그래밍 [야곰 저]
+### 16. Error Handling - 스위프트 프로그래밍 [야곰 저]
+### [17. Type Casting](17_TypeCasting.md)
+### [18. ARC](18_ARC.md) + 스위프트 프로그래밍 [야곰 저]
+### 19. Nested Types - 스위프트 프로그래밍 [야곰 저]
+### 20. Protocol - 스위프트 프로그래밍 [야곰 저]
+### 21. Generic - 스위프트 프로그래밍 [야곰 저]
+### 22. Access Control - 스위프트 프로그래밍 [야곰 저]
+### 23. Extension - 스위프트 프로그래밍 [야곰 저]
+### 24. Advanced Operators - 스위프트 프로그래밍 [야곰 저]
+
+---
+(+ 모자란 부분은 반복 리딩을 통해 정리해서 채워넣을 것)
