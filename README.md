@@ -1,6 +1,6 @@
-이 문서는 개인의 공부목적으로만 작성되었습니다.
+이 문서는 개인의 공부목적으로만 작성되었습니다. (잘못된 것이 있다면 알려주세요!)
 
-[스위프트 프로그래밍언어 공식문서](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/)
+* [스위프트 프로그래밍언어 공식문서](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/)
 
 * 참고도서 - 스위프트 프로그래밍 [한빛미디어 / 야곰 저]
 
@@ -26,7 +26,7 @@
 ### [17. Type Casting](17_TypeCasting.md)
 ### [18. ARC](18_ARC.md) + 스위프트 프로그래밍 [야곰 저]
 ### 19. Nested Types - 스위프트 프로그래밍 [야곰 저]
-### 20. Protocol - 스위프트 프로그래밍 [야곰 저]
+### [20. Protocol](20_Protocol.md) - 스위프트 프로그래밍 [야곰 저]
 ### 21. Generic - 스위프트 프로그래밍 [야곰 저]
 ### 22. Access Control - 스위프트 프로그래밍 [야곰 저]
 ### 23. Extension - 스위프트 프로그래밍 [야곰 저]
