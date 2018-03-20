@@ -13,7 +13,8 @@
 
 #### Closure Expressions(클로저 표현식)
 * The Sorted Method
-    - `sorted(by:)`메서드는 내가 제공하는 클로저의 결과물을 기반으로 배열의 요소를 정렬한다.
+    - `sorted(by:)` 메서드는 내가 제공하는 클로저의 결과물을 기반으로 배열의 요소를 정렬한다.
+    
     ```swift
     let names = ["Chris", "Alex", "Ewa", "Barry", "Daniella"]
 
@@ -23,13 +24,16 @@
 
     var reversedNames = names.sorted(by: backward)
     ```
+    
 * Closure Expression Syntax
     - 클로저 표현식 문법
+    
     ```swift
     { (parameters) -> return type in
         statements
     }
     ```
+    
     - 클로저 표현식 안에서 매개변수는 in-out매개변수가 될 수 있지만, 기본값은 가질 수 없다
     - 가변 매개변수 이름을 지정하면 가변매개변수를 사용할 수 있다.
     - 튜플은 매개변수와 반환 타입 전부 사용 가능
@@ -58,6 +62,7 @@
 #### Capturing Values
 * 클로저는 정의된 주변 컨텍스트로부터 변수나 상수를 획득(capture)할 수 있다. 그 다음 클로저는 이런 변수나 상수가 더 이상 존재하지 않더라도 이를 참조하거나 수정할 수 있다.
 * 스위프트에서 값을 획득할 수 있는 가장 간단한 형태는 중첩함수(nested function)다. nested function은 외부함수의 인자(argument)를 획득할 수 있으며 외부 함수내에 정의된 어떤 상수나 변수라도 획득할 수 있다.
+
     ```swift
     func makeIncrementer(forIncrement amount: Int) -> () -> Int {
         var runningTotal = 0
@@ -87,6 +92,7 @@
     incrementByTen()
     // returns a value of 40
     ```
+    
     - Note : 스위프트는 만약에 value가 클로저에 의해 바뀌지 않는다면, value의 복사본을 대신 획득하고 저장할 수도 있다.  
     - 원문 : As an optimization, Swift may instead capture and store a copy of a value if that value is not mutated by a closure, and if the value is not mutated after the closure is created. Swift also handles all memory management involved in disposing of variables when they are no longer needed.
     - Note : If you assign a closure to a property of a class instance, and the closure captures that instance by referring to the instance or its members, you will create a strong reference cycle between the closure and the instance. Swift uses capture lists to break these strong reference cycles. For more information, see Strong Reference Cycles for Closures.(강한 참조 순환 문제에 관한 내용)

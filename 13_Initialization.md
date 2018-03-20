@@ -9,10 +9,12 @@
 #### Setting Initial Values for Stored Properties
 클래스와 구조체는 인스턴스가 생성되기 전에 모든 저장 프로퍼티에 적절한 초기값이 세팅되어있어야 한다.(저장 프로퍼티는 불확실한(값이 없는)상태로 남아있을 수 없다.)
 이니셜라이저 또는 기본값 할당을 통해 초기값을 세팅할 수 있다.
+
 * Note: 저장 프로퍼티에 기본값을 통해 초기값을 세팅하거나, 이니셜라이저를 사용할 때, 프로퍼티 감시자는 호출되지 않는다.
 
 * Initializers
     - 매개변수가 없는 이니셜라이저
+    
         ```swift
         struct Fahrenheit {
             var temperature: Double
@@ -51,9 +53,11 @@ let boilingPointOfWater = Celsius(fromFahrenheit: 212.0)
 let freezingPointOfWater = Celsius(fromKelvin: 273.15)
 // freezingPointOfWater.temperatureInCelsius is 0.0
 ```
+
 * Parameter Names and Argument Labels
 이니셜라이저에 parameter name과 arguement label을 사용할 수 있다.
 이니셜라이저는 함수나 메서드처럼 함수이름을갖고 있지 않다. 그래서 이니셜라이저의 매개변수의 이름과 타입은 이니셜라이저를 구분하는데 특별히 더 중요한 역할을 한다. 이거 때문에 *스위프트는 이니셜라이저안에서 모든 매개변수에 대해 자동으로 argument label을 제공한다.*
+
     ```swift
     struct Color {
         // 상수 프로퍼티지만 선언에 초기값이 없더라도 이니셜라이저를 통해 초기값을 준다.
@@ -78,6 +82,7 @@ let freezingPointOfWater = Celsius(fromKelvin: 273.15)
     ```
 * Initializer Parameters Without Arguement Labels
 arguement label을 사용하고 싶지 않을 때, `(_)` underscore를 사용
+
     ```swift
     struct Celsius {
         var temperatureInCelsius: Double
@@ -97,6 +102,7 @@ arguement label을 사용하고 싶지 않을 때, `(_)` underscore를 사용
 
 * Optional Property Types
 프로퍼티를 옵셔널로 선언하면 자동으로 nil이 할당된다.
+
 ```swift
 class SurveyQuestion {
     var text: String
@@ -113,9 +119,11 @@ cheeseQuestion.ask()
 // Prints "Do you like cheese?"
 cheeseQuestion.response = "Yes, I do like cheese."
 ```
+
 * Assigning Constant Properties During Initialization
 초기화 과정 중에 어떤 시점에라도 상수프로퍼티에 값을 할당할 수 있다. 한번 상수프로퍼티에 값이 할당되면 값을 변경할 수 없다.
     - Note: 클래스의 인스턴스의 경우 , 상수프로퍼티는 프로퍼티가 정의된 곳에서만 값을 변경할 수 있고, 초기화 과정에서만 할 수 있다. subclass에서 값을 변경할 수 없다.
+    
 ```swift
 class SurveyQuestion {
     let text: String
@@ -131,7 +139,6 @@ let beetsQuestion = SurveyQuestion(text: "How about beets?")
 beetsQuestion.ask()
 // Prints "How about beets?"
 beetsQuestion.response = "I also like beets. (But not with cheese.)"
-
 ```
 
 #### Default Initializers
@@ -260,29 +267,31 @@ convenience init(parameters) {
 부모클래스와 동일한 지정 이니셜라이저를 사용하고 싶으면 자식클래스에서 재정의(override사용)하면 된다. 기본 이니셜라이저와 편의이니셜라이를 재정의하는 경우에도 override를 사용하면된다. 자식 클래스의 편의이니셜라이저가 부모클래스의 지정 이니셜라이저를 재정의하는 경우에도 override를 사용하면 된다.(자식 클래스에서 부모클래스의 편의 이니셜라이저는 호출할 수 없기 때문에 재정의가 필요없다. = 부모클래스의 편의 이니셜라이저와 동일한 이니셜라이저를 자식클래스에 구현할 때 override를 부이지 않는다.)
 
 * 예제
-```swift
-class Vehicle {
-    var numberOfWheels = 0
-    var description: String {
-        return "\(numberOfWheels) wheel(s)"
-    }
-}
-// 기본 이니셜라이저 사용
-let vehicle = Vehicle()
-print("Vehicle: \(vehicle.description)")
 
-// a subclass of Vehicle
-class Bicycle: Vehicle {
-    // a custom designated initializer (superclass의 designated initializer와 동일하므로 override가 붙는다.)
-    override init() {
-        super.init()
-        numberOfWheels = 2
-    }
-}
-let bicycle = Bicycle()
-print("Bicycle: \(bicycle.description)")
-// Bicycle: 2 wheel(s)
-```
+	```swift
+	class Vehicle {
+	    var numberOfWheels = 0
+	    var description: String {
+	        return "\(numberOfWheels) wheel(s)"
+	    }
+	}
+	// 기본 이니셜라이저 사용
+	let vehicle = Vehicle()
+	print("Vehicle: \(vehicle.description)")
+	
+	// a subclass of Vehicle
+	class Bicycle: Vehicle {
+	    // a custom designated initializer (superclass의 designated initializer와 동일하므로 override가 붙는다.)
+	    override init() {
+	        super.init()
+	        numberOfWheels = 2
+	    }
+	}
+	let bicycle = Bicycle()
+	print("Bicycle: \(bicycle.description)")
+	// Bicycle: 2 wheel(s)
+	```
+	
 * 상속받은 Bicycle이 super.init()을 호출한 것은 상속받은 프로퍼티인 `numberOfWheels`가 Bicycle이 프로퍼티를 변경하기전에 Vehicle에 의해서 초기화 됐다는 것을 보장한다. super.init()호출 이후에 numberOfWheels이 새로운 2로 값이 변경되었다.
 * Note: 자식클래스에서 이니셜라이저안에서 상속받은 프로퍼티를 변경할 수 있다. 하지만 상속받은 `상수 프로퍼티`는 변경할 수 없다.
 
@@ -296,6 +305,7 @@ print("Bicycle: \(bicycle.description)")
 
 * Designated and Convenience Initializers in Action
 아래 코드를 해석할 줄 알면 자동상속에 대해서 이해완료
+
 ```swift
 class Food {
     var name: String
@@ -621,3 +631,20 @@ override viewdidLoad() {
 ```
 * 위 메소드가 호출될 때 모든 outlets은 연결되어 있지만 아직 화면에는 나타나지 않는 상태로, 초기화 작업을 하기 좋은 시점이다.
 * 프로퍼티를 암시적 추출 옵셔널로 생성해 위 메서드에 초기화하는 전략을 사용하는 것이 좋다.
+
+
+### 실험하기
+* 기본값과 초깃값 중 어떤 것으로 설정되나 : 기본값보다 초깃값이 더 나중에 할당된다. 이니셜라이저에서 초깃값 할당이 없다면 기본값을 가지고 초기값을 할당하므로
+
+	```swift
+	struct Area {
+	    var meter: Double = 0.0
+	    
+	    
+	    init() {
+	        self.meter = 2.1
+	    }
+	}
+	
+	print(Area().meter) // 2.1
+	```
