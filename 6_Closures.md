@@ -111,6 +111,7 @@
     - 비동기 작업(asynchronous operation)을 시작하는 많은 함수들이 전달인자로 클로저를 받고 이 클로저를 completion handler로 사용한다. 비동기 작업을 시작한후에 함수는 return(종료)하지만, 클로저는 비동기작업이 완료될때까지 호출되지 않는다.(-> 함수가 종료된 후 비동기 작업이 완료되면 호출되는 경우이므로 탈출이 필요하다.)
     - `@escaping`을 표시하는 것은 클로저 안에서 `self`를 명시적으로 참조해야 한다는 것을 의미한다.
     - 아래 예제에는 탈출 클로저는 self를 명시했고, 비탈출 클로저는 명시하지 않았다.(비탈출 클로저는 self를 암시적으로(implicitly)참조하고 있다.)
+    
         ```swift
         var completionHandlers: [() -> Void] = []
         func someFunctionWithEscapingClosure(completionHandler: @escaping () -> Void) {
@@ -142,6 +143,7 @@
 
 #### Autoclosures
 * auto클로저를 설정해주면 클로저가 아닌 코드의 결과가 전달인자로 넘어간다. 아래 예제에서 String 타입의 문자열이 전달인자로 넘어가게 되는데, 자동클로저 매개변수에 String타입이 전달받게 되면 *String값을 매개변수가 없고 String값을 반환하는 클로저로 변환해준다.* String 타입의 값을 전달받는 이유는 자동클로저의 반환 타입이 String이기 때문이다.
+
     ```swift
     var customersLine: [String] = ["Y", "S", "H", "M"]
 
@@ -164,7 +166,9 @@
     // Now serving S!
 
     ```
+    
 * 자동클로저의 escaping
+
     ```swift
     var customersInLine: [String] = ["Barry", "Daniella"]
     var customerProviders: [() -> String] = []
@@ -185,6 +189,7 @@
     ```
 
 * autoclosure의 escaping
+
 ```swift
 // customersInLine is ["Barry", "Daniella"]
 var customerProviders: [() -> String] = []
