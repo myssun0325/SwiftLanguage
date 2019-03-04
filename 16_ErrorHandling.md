@@ -31,10 +31,11 @@ enum VendingMachineError: Error {
 	- 함수, 메서드, 이니셜라이저 뒤에 throw 키워드를 사용하여 오류를 던질 수 있다. throw 키워드가 표시된 함수는 throwing function라고 합니다.
 	
 	```swift
-	func canThrowErros() thorws -> String
+	func canThrowErros() throws -> String
 	```
 	
-	- thorws는 함수나 메서드의 타입에도 영향을 미친다. throws는 같은 이름의 throws가 명시되지 않은 함수나 메서드와 구분된다. throws를 포함한 함수, 메서드, 이니셜라이저는 일반함수, 메서드, 이니셜라이저로 재정의할 수 없다. 하지만 반대는 가능.
+	- thorws는 함수나 메서드의 타입에도 영향을 미친다. throws는 같은 이름의 throws가 명시되지 않은 함수나 메서드와 구분된다. 
+	- throws를 포함한 함수, 메서드, 이니셜라이저는 일반함수, 메서드, 이니셜라이저로 재정의할 수 없다. 하지만 반대는 가능.
 	- 오류를 던지는 함수를 호출하는 메서드 또는 함수도 오류를 던질 수 있어야 하므로 throws키워드를 통해 오류를 던질 수 있는 함수로 구현해줘야 한다.
 	- try는 시도만 할 뿐!
 
