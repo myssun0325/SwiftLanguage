@@ -22,7 +22,7 @@
 ### [13. Initialization](13_Initialization.md) + 스위프트 프로그래밍 [야곰 저]
 ### [14. Deinitialization](14_Deinitialization.md)
 ### 15. Optional Chaining - 스위프트 프로그래밍 [야곰 저]
-### 16. Error Handling - 스위프트 프로그래밍 [야곰 저]
+### [16. Error Handling](16_ErrorHandling.md) - 스위프트 프로그래밍 [야곰 저]
 ### [17. Type Casting](17_TypeCasting.md)
 ### [18. ARC](18_ARC.md) + 스위프트 프로그래밍 [야곰 저]
 ### 19. Nested Types - 스위프트 프로그래밍 [야곰 저]

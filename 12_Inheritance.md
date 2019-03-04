@@ -12,6 +12,7 @@
 #### Subclassing
 Subclassing은 이미 존재하는 클래스에서 새로운 클래스의 수행을 말한다.
 subclass에 재정의나 새로운 특성을 추가할 수 있다.
+
 ```swift
 class Vehicle {
     var currentSpeed = 0.0
@@ -51,6 +52,7 @@ print("Tandem: \(tandem.description)")
 #### Overriding
 subclass는 인스턴스메서드, 타입메서드, 인스턴스 프로퍼티, 타입 프로퍼티, 서브스크립트를 재정의 할 수 있다.
 `override`라는 키워드를 사용, 스위프트 컴파일러는 override 키워드를 통해 superclass에서 일치하는 선언을 했는지 체크한다.
+
 * Accessing Superclass Methods, Properties, and Subscripts
     - 메서드, 프로퍼티, 서브스크립트를 재정의할 때, 슈퍼클래스에 정의되어 있는 부분을 재정의로 사용하는 것은 유용하게 쓰일 수 있다. 예를 들어 이미 구현되어 있는 것을 수정하거나, 상속받은 변수에 수정된 값을 저장할 수 있다.
     - superclass에 접근하고 싶을 때, `super` 키워드를 사용할 것.
